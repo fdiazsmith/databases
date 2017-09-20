@@ -67,25 +67,15 @@ class Todo {
   }
 
   update(id, description, callback) {
-    this.load((error, todos) => {
-      if (error) { callback(error); return }
+    let sql = 'UPDATE `task` SET description = ? WHERE ?'
+    let inserts = [description, parseInt(id.split(":")[1])]
+    sql = mysql.format(sql, inserts)
+    console.log("ABOUT TO UPDATE >> ", sql )
 
-      const todo = todos.find(t => t.id === id)
-      if (todo == null) {
-        const error = new Error(`Todo with ID ${id} does not exist`)
-        error.name = 'NotFound'
-
-        callback(error)
-        return
-      }
-
-      todo.description = description
-
-      this.save(todos, error => {
-        if (error) { callback(error); return }
-
-        callback(null, todo)
-      })
+    connection.query(sql, (error, results, fields) => {
+      if ( error ) throw error
+      console.log( results )
+      callback(error, results)
     })
   }
 
