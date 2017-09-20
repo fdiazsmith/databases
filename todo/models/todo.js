@@ -57,12 +57,10 @@ class Todo {
   }
 
   load(callback) {
-    FS.readFile(filename, 'utf-8', (error, data) => {
-      if (error) {
-        callback(error)
-      } else {
-        callback(null, JSON.parse(data))
-      }
+    let sql ='SELECT * FROM `task`'
+    connection.query(sql, (error, results, fields) => {
+      if ( error ) throw error
+      callback(error, results)
     })
   }
 
@@ -75,29 +73,11 @@ class Todo {
     let sql = 'INSERT INTO `task` (`id`,`description`,`done`,`date_created`,`date_last_modified`) VALUES (NULL, ? , "0", NULL, NULL)'
     let inserts = [_description];
     sql = mysql.format(sql, inserts);
-    console.log("WHAT ", sql)
 
     connection.query(sql, (error, results, fields) => {
       if ( error ) throw error
       callback(error, results)
     })
-
-    // this.load((error, todos) => {
-    //   if (error) { callback(error); return }
-    //
-    //   const todo = {
-    //     id: uuid(),
-    //     description,
-    //     done: false
-    //   }
-    //   todos.push(todo)
-    //
-    //   this.save(todos, error => {
-    //     if (error) { callback(error); return }
-    //
-    //     callback(null, todo)
-    //   })
-    // })
   }
 
   update(id, description, callback) {
