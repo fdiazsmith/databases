@@ -71,9 +71,13 @@ class Todo {
   }
 
   create(_description, callback) {
-    console.log("WHAT ", _description)
+    // var sql = "SELECT * FROM ?? WHERE ?? = ?";
+    let sql = 'INSERT INTO `task` (`id`,`description`,`done`,`date_created`,`date_last_modified`) VALUES (NULL, ? , "0", NULL, NULL)'
+    let inserts = [_description];
+    sql = mysql.format(sql, inserts);
+    console.log("WHAT ", sql)
 
-    connection.query('INSERT INTO `task` (`id`,`description`,`done`,`date_created`,`date_last_modified`) VALUES (NULL,'+_description+', "0", NULL, NULL)', (error, results, fields) => {
+    connection.query(sql, (error, results, fields) => {
       if ( error ) throw error
       callback(error, results)
     })
