@@ -67,14 +67,19 @@ class Todo {
   }
 
   update(id, description, callback) {
-    let sql = 'UPDATE `task` SET description = ? WHERE ?'
+    let sql = 'UPDATE `task` SET description = ? WHERE id=?'
     let inserts = [description, parseInt(id.split(":")[1])]
     sql = mysql.format(sql, inserts)
-    console.log("ABOUT TO UPDATE >> ", sql )
 
     connection.query(sql, (error, results, fields) => {
       if ( error ) throw error
-      console.log( results )
+
+      const regex = /Rows.matched:.(\d{1,100})/g;
+      let m = regex.exec(results.message)
+
+      if (m[1] === '0' )
+        error = {name : "NotFound"}
+        
       callback(error, results)
     })
   }
