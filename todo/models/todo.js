@@ -14,17 +14,6 @@ var connection = mysql.createConnection({
   database : 'hyf_todo'
 })
 
-
-
-//
-
-
-//
-// connection.end();
-
-
-
-
 class Todo {
 
   //NOTE: future implementation, add user ID here.
@@ -51,9 +40,6 @@ class Todo {
         console.log("TABLE already exist, using: ", results)
       }
     })
-
-
-
   }
 
   load(callback) {
@@ -104,15 +90,14 @@ class Todo {
   }
 
   remove(id, callback) {
-    this.load((error, todos) => {
-      if (error) { callback(error); return }
+    let sql = 'DELETE FROM `task`  WHERE id=?'
+    let inserts = [parseInt(id.split(":")[1])]
+    sql = mysql.format(sql, inserts)
 
-      todos = todos.filter(t => t.id !== id)
-
-      this.save(todos, error => {
-        if (error) { callback(error); return }
-        callback()
-      })
+    connection.query(sql, (error, results, fields) => {
+      if ( error ) throw error
+      console.log( results )
+      callback(error)
     })
   }
 
