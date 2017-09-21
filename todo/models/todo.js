@@ -50,12 +50,8 @@ class Todo {
     })
   }
 
-  save(todos, callback) {
-    FS.writeFile(filename, JSON.stringify(todos), callback)
-  }
 
   create(_description, callback) {
-    // var sql = "SELECT * FROM ?? WHERE ?? = ?";
     let sql = 'INSERT INTO `task` (`id`,`description`,`done`,`date_created`,`date_last_modified`) VALUES (NULL, ? , "0", NULL, NULL)'
     let inserts = [_description];
     sql = mysql.format(sql, inserts);
@@ -79,7 +75,7 @@ class Todo {
 
       if (m[1] === '0' )
         error = {name : "NotFound"}
-        
+
       callback(error, results)
     })
   }

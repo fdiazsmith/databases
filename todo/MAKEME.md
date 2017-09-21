@@ -13,6 +13,11 @@
  ```
 mysql server does not need to be running on the background, but you can keep it up to help you debug.
 
+Then simply run:
+```
+npm install
+npm start
+```
 
 ### Assignment for this weak:
 
