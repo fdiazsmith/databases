@@ -1,8 +1,8 @@
 > Please help us improve and share your feedback! If you find better tutorials or links, please share them by opening a Pull Request.
 
-# HackYourFuture Node.js - Homework week 3
+# HackYourFuture Databases - week 2
 
-# run
+# Run
  start `mysql` server in terminal. Create a database for your **TODO** app.
  ```
  CREATE DATABASE hyf_todo;
@@ -11,6 +11,7 @@
 
  FLUSH PRIVILEGES;
  ```
+mysql server does not need to be running on the background, but you can keep it up to help you debug.
 
 
 ### Assignment for this weak:
