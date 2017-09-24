@@ -1,22 +1,23 @@
-const FS = require('fs')
+const fs = require('fs')
 const Path = require('path')
 const uuid = require('uuid/v4')
+const config = require('./config-secret.json')
 
-// var config = JSON.parse(FS.readFileSync("config-secret.json"))
 
 var mysql      = require('mysql')
 
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'fer',
-  password : 'fer',
-  database : 'hyf_todo'
+  host     : config.host,
+  user     : config.user,
+  password : config.password,
+  database : config.database
 })
 
 class Todo {
 
   //NOTE: future implementation, add user ID here.
   init(){
+    console.log(config);
     //Connect to mysql
     connection.connect()
     // define which database to use
