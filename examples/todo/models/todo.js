@@ -2,16 +2,17 @@ const FS = require('fs')
 const Path = require('path')
 const uuid = require('uuid/v4')
 
-const filename = Path.resolve(__dirname, '../data/todos.json')
+
+const config = require('./config-secret.json')
 
 
 var mysql      = require('mysql')
 
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'fer',
-  password : 'fer',
-  database : 'hyf_todo'
+  host     : config.host,
+  user     : config.user,
+  password : config.password,
+  database : config.database
 })
 
 class Todo {
