@@ -11,6 +11,7 @@
   "author": "Joost Lubach",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.1",
     "jsonwebtoken": "^7.4.3",
