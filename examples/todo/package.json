@@ -11,14 +11,18 @@
   "author": "Joost Lubach",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.17.1",
-    "express": "^4.15.2",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.1",
+    "jsonwebtoken": "^7.4.3",
+    "lodash": "^4.16.4",
+    "mysql": "^2.14.1",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
-    "babel-watch": "^2.0.7",
-    "mysql": "^2.14.1"
+    "babel-watch": "^2.0.7"
   }
 }
