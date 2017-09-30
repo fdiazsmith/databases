@@ -2,44 +2,14 @@ const FS = require('fs')
 const Path = require('path')
 const uuid = require('uuid/v4')
 
-
-const config = require('./config-secret.json')
-
-
-var mysql      = require('mysql')
-
-var connection = mysql.createConnection({
-  host     : config.host,
-  user     : config.user,
-  password : config.password,
-  database : config.database
-})
+const { mysql , connection } = require('../util/connectToMysql')
 
 class Todo {
 
   //NOTE: future implementation, add user ID here.
   init(){
-    //Connect to mysql
-    connection.connect()
-    // define which database to use
-    connection.query('USE hyf_todo',  (error, results, fields) =>{
+    connection.query('CREATE TABLE IF NOT EXISTS `task` (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, description VARCHAR(50), done BOOL, date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  date_last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);', (error, results, fields) => {
       if (error) throw error
-    })
-
-    // check for tables and create if it is not there.
-    connection.query("SHOW TABLES LIKE 'task'", (error, results, fields)=>{
-      if (error) throw error
-
-      if(results.length === 0){
-        console.log("Creating TABLE 'task'")
-        connection.query('CREATE TABLE task (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, description VARCHAR(50), done BOOL, date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  date_last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);', (error, results, fields) => {
-          if (error) throw error
-          console.log('Table created: ', results)
-        })
-      }
-      else{
-        console.log("TABLE already exist, using: ", results)
-      }
     })
   }
 
