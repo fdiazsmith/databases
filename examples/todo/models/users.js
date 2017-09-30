@@ -7,9 +7,8 @@ class Users {
   //NOTE: future implementation, add user ID here.
   init(){
     console.log("who is calling this?");
-    connection.query('CREATE TABLE IF NOT EXISTS `users` (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, username VARCHAR(50), password VARCHAR(50), date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  date_last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);', (error, results, fields) => {
+    connection.query('CREATE TABLE IF NOT EXISTS `users` (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, username VARCHAR(50), password VARCHAR(255), date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  date_last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);', (error, results, fields) => {
       if (error) throw error
-      console.log('Table created: ')
     })
 
   }
@@ -34,7 +33,7 @@ class Users {
     })
   }
 
-  findUser(username, callback) {
+  findOne(username, callback) {
     let sql = 'SELECT * FROM `users` WHERE username=?'
     let inserts = [ username ]
     sql = mysql.format(sql, inserts)
@@ -42,6 +41,17 @@ class Users {
     connection.query(sql, (error, results, fields) => {
       if ( error ) throw error
       callback(error, results)
+    })
+  }
+
+  getID(username, callback) {
+    let sql = 'SELECT * FROM `users` WHERE username=?'
+    let inserts = [ username ]
+    sql = mysql.format(sql, inserts)
+
+    connection.query(sql, (error, results, fields) => {
+      if ( error ) throw error
+      callback(error, results[0].id)
     })
   }
 
