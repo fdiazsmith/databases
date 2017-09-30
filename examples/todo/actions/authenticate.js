@@ -1,6 +1,7 @@
 const _ = require("lodash")
 const { jwt , jwtOptions } = require('../util/setPassport')
 const Users = require('../models/users')
+const bcrypt = require('bcrypt')
 
 module.exports = function authenticate(request, response) {
   if(request.body.username && request.body.password){
@@ -8,15 +9,16 @@ module.exports = function authenticate(request, response) {
     var password = request.body.password
   }
 
-  // usually this would be a database call:
-  var user = Users.findUser(username, (error, results)=>{
+
+  Users.findOne(username, (error, results)=>{
     if ( error ) throw error
 
     if( ! results ){
       response.status(401).json({message:"no such user found"})
     }
 
-    if(results[0].password === request.body.password) {
+
+    if( bcrypt.compareSync(request.body.password, results[0].password ) ) {
       // from now on we'll identify the user by the id and the id is the only personalized value that goes into our token
       var payload = {id: results[0].id}
       var token = jwt.sign(payload, jwtOptions.secretOrKey)
