@@ -43,6 +43,16 @@ class Users {
       callback(error, results)
     })
   }
+  findOneByID(id, callback) {
+    let sql = 'SELECT * FROM `users` WHERE id=?'
+    let inserts = [ id ]
+    sql = mysql.format(sql, inserts)
+
+    connection.query(sql, (error, results, fields) => {
+      if ( error ) throw error
+      callback(error, results)
+    })
+  }
 
   getID(username, callback) {
     let sql = 'SELECT * FROM `users` WHERE username=?'
