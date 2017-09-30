@@ -3,5 +3,6 @@ module.exports = {
   create: require('./create'),
   update: require('./update'),
   remove: require('./remove'),
-  authenticate: require('./authenticate')
+  authenticate: require('./authenticate'),
+  signin: require('./signin')
 }
