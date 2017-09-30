@@ -28,7 +28,6 @@ module.exports = function signin(request, response) {
             var payload = {id: id }
             var token = jwt.sign(payload, jwtOptions.secretOrKey)
             response.json({message: "ok", token: token})
-            response.sendFile(__dirname + 'public/views/index.html');
           })
         }
 
