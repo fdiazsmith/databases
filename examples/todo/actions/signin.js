@@ -2,8 +2,8 @@ const { jwt , jwtOptions } = require('../util/setPassport')
 const Users = require('../models/users')
 const bcrypt = require('bcrypt')
 
-
 const saltRounds = 10
+
 
 module.exports = function signin(request, response) {
 

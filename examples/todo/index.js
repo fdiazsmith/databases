@@ -31,22 +31,19 @@ app.get('/', (req, res)=>{
 
 app.get('/todos', passport.authenticate('jwt', { session: false }), list)
 
-app.post('/todos', create)
+app.post('/todos', passport.authenticate('jwt', { session: false }), create)
 
-app.put('/todos/:id', update)
+app.put('/todos/:id', passport.authenticate('jwt', { session: false }), update)
 
-app.delete('/todos/:id', remove)
+app.delete('/todos/:id', passport.authenticate('jwt', { session: false }), remove)
 
-app.post("/login", authenticate);
+app.post("/login", authenticate );
 
 app.get("/signin", (req, res)=>{
   res.sendFile(__dirname + 'public/views/signin.html')
 })
 app.post("/signin", signin)
 
-app.get("/secret", passport.authenticate('jwt', { session: false }), function(req, res){
-  res.json({message: "Success! You can not see this without a token"})
-})
 
 
 app.listen(3000, ()=>{console.info("SERVER IS UP")})

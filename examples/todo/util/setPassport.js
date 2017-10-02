@@ -19,6 +19,7 @@ let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
 
   Users.findOneByID( jwt_payload.id, (error, results )=>{
     if ( error ) throw error
+
     if(results[0] === undefined){
       next(null, false);
     }
