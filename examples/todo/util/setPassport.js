@@ -31,7 +31,7 @@ let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
 });
 
 // S E T   U P   U S A G E
-passport.use(strategy);
+passport.use( strategy );
 
 module.exports = {
   jwt : jwt,

@@ -4,5 +4,7 @@ module.exports = {
   update: require('./update'),
   remove: require('./remove'),
   authenticate: require('./authenticate'),
-  signin: require('./signin')
+  signin: require('./signin'),
+  action: require('./action'),
+  markAsDone : require('./markAsDone')
 }

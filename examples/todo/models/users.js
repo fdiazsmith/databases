@@ -6,7 +6,6 @@ class Users {
 
   //NOTE: future implementation, add user ID here.
   init(){
-    console.log("who is calling this?");
     connection.query('CREATE TABLE IF NOT EXISTS `users` (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, username VARCHAR(50), password VARCHAR(255), date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  date_last_modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);', (error, results, fields) => {
       if (error) throw error
     })
