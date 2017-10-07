@@ -5,7 +5,7 @@ const Users = require('./models/users')
 const { passport } = require('./util/setPassport')
 
 const app = Express()
-const __dirname = '/Users/fdiazsmith/Documents/HYF/databases/examples/todo/'
+const DIRNAME = '/Users/fdiazsmith/Documents/HYF/databases/examples/todo/'
 
 
 app.use( passport.initialize() )
@@ -21,14 +21,13 @@ app.use(bodyParser.json())
 
 app.use(Express.static('./public') )
 
-const { list, create, update, remove, authenticate, signin, action, markAsDone} = require('./actions')
+const { list, create, update, remove, authenticate, signin, markAsDone} = require('./actions')
 
-console.log( action.hello() );
 
 app.get('/', (req, res)=>{
-  res.sendFile(__dirname + 'public/views/index.html')
+  res.sendFile(DIRNAME + 'public/views/index.html')
   // NOTE: implement path.join at a later time
-  // res.sendFile(path.join(__dirname, '../public', 'index1.html'));
+  // res.sendFile(path.join(DIRNAME, '../public', 'index1.html'));
 })
 
 app.get('/todos', list)
@@ -44,11 +43,11 @@ app.delete('/todos/:id', remove)
 app.post("/login", authenticate );
 
 app.get("/signin", (req, res)=>{
-  res.sendFile(__dirname + 'public/views/signin.html')
+  res.sendFile(DIRNAME + 'public/views/signin.html')
 })
 app.post("/signin", signin)
 
-app.get('/secret', passport.authenticate('jwt', { session: false }), action.sendHello )
+app.get('/secret', passport.authenticate('jwt', { session: false }), list )
 
 
 app.listen(3000, ()=>{console.info("SERVER IS UP listeing on port 3000")})

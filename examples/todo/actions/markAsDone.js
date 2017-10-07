@@ -3,10 +3,8 @@ const deserializeTodo = require('../util/deserializeTodo')
 
 module.exports = function (request, response) {
 
-  const regex = /id:(\d{1,100})/g;
-  let m = regex.exec(request.url)
-  let id = m[1];
-
+  let id = parseInt(request.params.id.split(":")[1])
+  
   if (id == null) { return }
 
   Todo.markAsDone( id, (error, todo) => {
