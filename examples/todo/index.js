@@ -6,13 +6,17 @@ const Users = require('./models/users')
 const { passport } = require('./util/setPassport')
 
 const app = Express()
-const __dirname = '/Users/fdiazsmith/Documents/HYF/databases/examples/todo/'
+const DIRNAME = '/Users/fdiazsmith/Documents/HYF/databases/examples/todo/'
+const cookieParser = require('cookie-parser')
 
 
 app.set('view engine', 'pug')
-app.set('views', path.join(__dirname, '/public/views'));
+app.set('views', path.join(DIRNAME, '/public/views'));
 
 app.use( passport.initialize() )
+
+
+app.use(cookieParser())
 
 // parse application/x-www-form-urlencoded
 // for easier testing with Postman or plain HTML forms
@@ -32,7 +36,7 @@ app.get('/', function (req, res) {
   res.render('index', { title: 'todo', message: 'fer' })
 })
 
-app.get('/todos', list)
+app.get('/todos', passport.authenticate('jwt', { session: false }), list)
 
 app.post('/todos',  create)
 

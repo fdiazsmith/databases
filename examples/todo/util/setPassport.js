@@ -8,9 +8,18 @@ const config = require('./passport-secret.json')
 const Users = require('../models/users')
 const bcrypt = require('bcrypt')
 
+const cookieExtractor = function(req) {
+    let token = null;
+    if (req && req.cookies){
+        token = req.cookies['Authorization'].replace("JWT ", "");
+    }
+    return token;
+};
+
 // SET UP JWT
 let jwtOptions = {}
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
+// jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
+jwtOptions.jwtFromRequest = ExtractJwt.fromExtractors([cookieExtractor]);
 jwtOptions.secretOrKey = config.secretOrKey;
 
 let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
@@ -29,6 +38,7 @@ let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
   })
 
 });
+
 
 // S E T   U P   U S A G E
 passport.use( strategy );

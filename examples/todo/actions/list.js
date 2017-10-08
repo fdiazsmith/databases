@@ -8,8 +8,7 @@ module.exports = function list(request, response) {
       response.status(500)
       response.json({error: 'Internal error'})
     } else {
-      response.json({todos})
-      response.end()
+      response.render("user-todos", {username: request.user.username, todos:todos})
     }
   })
 
