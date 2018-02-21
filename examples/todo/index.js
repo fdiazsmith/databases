@@ -56,7 +56,7 @@ app.post("/signin", signin)
 app.get('/secret', passport.authenticate('jwt', { session: false }), list )
 
 
-app.listen(3000, ()=>{
+app.listen(3009, ()=>{
   console.info(`SERVER IS UP running as: ${process.env.NODE_ENV} \nlistening on http://localhost:3000`)
 })
 

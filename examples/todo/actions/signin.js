@@ -27,6 +27,7 @@ module.exports = function signin(request, response) {
           Users.getID(username, (error, id )=>{
             var payload = {id: id }
             var token = jwt.sign(payload, jwtOptions.secretOrKey)
+            console.log("JWT token: ", token);
             response.json({message: "ok", token: token})
           })
         }
